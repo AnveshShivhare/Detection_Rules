@@ -1,0 +1,25 @@
+title: mimikatz_lsass_access
+id: 7da5c9f6-bbda-4c26-a500-fa04234a9b79
+status: Experimental
+description: Detects Mimikatz credential dumping via LSASS process access with suspicious GrantedAccess values
+author: Anvesh Shivhare
+date: 2026-09-27
+tags:
+  - attack.credential_access
+  - attack.t1003.001
+logsource:
+  category: process_access
+  product: windows
+detection:
+  selection:
+    EventCode: 10
+    TargetImage: "*lsass.exe"
+    GrantedAccess:
+      - 0x1010
+      - 0x1038
+      - 0x143a
+      - 0x1fffff
+  condition: selection
+falsepositives:
+  - Security tools and AV products accessing LSASS
+level: high

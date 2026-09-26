@@ -1,0 +1,18 @@
+title: Malicious_PowerShell_Stager_Payload
+id: 0b4982fe-95bb-43ec-be1e-b24b2e12bb66
+status: Experimental
+description: Detects obfuscated Base64 stager connection
+author: Anvesh Shivhare
+date: 2026-09-27
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventCode: 1
+    Image: "*powershell.exe"
+    CommandLine:
+      - "* -EncodedCommand *"
+      - "* -enc *"
+  condition: selection
+level: high

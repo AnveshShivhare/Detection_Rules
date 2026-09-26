@@ -1,0 +1,23 @@
+title: Windows_Failed_Network_Logons
+id: 6bf3ac87-266e-42e8-9233-f9a3424a9b71
+status: experimental
+description: Detects multiple failed network logons from the same source IP against the same account.
+author: Anvesh Shivhare
+date: 2026-09-27
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4625
+    LogonType: 3
+  condition: selection
+fields:
+    - IpAddress
+    - Account_Name
+    - TargetUserName
+falsepositives:
+    - Legitimate applications repeatedly attempting authentication
+    - Misconfigured services
+    - Users with expired credentials
+level: medium
